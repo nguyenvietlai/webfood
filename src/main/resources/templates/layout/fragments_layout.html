@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description"
+		content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Fruitkha - Slider Version</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="/assets/css/responsive.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+	<!-- header -->
+	<div class="top-header-area" id="sticker" th:fragment="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a th:href="@{/home}"> <img src="assets/img/logo.png" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a th:href="@{/home}">Trang
+										Chủ</a></li>
+								<li><a th:href="@{/about}">Chúng Tôi</a></li>
+
+								<li><a th:href="@{/new}">Tin Tức</a></li>
+								<li><a th:href="@{/contact}">Liên Hệ</a></li>
+
+								<li><a th:href="@{/product}">Sản Phẩm</a>
+								<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
+
+
+								</li>
+								<li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+									<a style="color:white" th:text="${#authentication.name}"
+										class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdown" )>
+										<a style="color:black" class="dropdown-item" href="#">Thông tin</a>
+										<a style="color:black" class="dropdown-item" th:href="@{/logout}">Logout</a>
+
+									</div>
+								</li>
+
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart" th:href="@{/cart}">
+											<span sec:authorize="isAuthenticated()"><i
+													class="fas fa-shopping-cart"></i>{{cart.count}}</span>
+										</a>
+
+										<a class="mobile-hide search-bar-icon" href="#"><i
+												class="fas fa-search"></i></a>
+									</div>
+
+								</li>
+
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+
+
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end header -->
+
+
+
+	<!-- footer -->
+	<div class="footer-area" th:fragment="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus
+							error sit voluptatem accusantium doloremque laudantium, totam rem
+							aperiam, eaque ipsa quae.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+							<li>support@fruitkha.com</li>
+							<li>+00 111 222 3333</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Pages</h2>
+						<ul>
+							<li><a href="index.html">Trang Chủ</a></li>
+							<li><a href="about.html">Chúng Tôi</a></li>
+							<li><a href="services.html">Sản Phẩm</a></li>
+							<li><a href="news.html">Tin tức</a></li>
+							<li><a href="contact.html">Liên Hệ</a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates.</p>
+						<form action="index.html">
+							<input type="email" placeholder="Email">
+							<button type="submit">
+								<i class="fas fa-paper-plane"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+
+	<!-- copyright -->
+	<div class="copyright" th:fragment="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>
+						Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran
+							Hossain</a>, All Rights Reserved.<br> Distributed By - <a
+							href="https://themewagon.com/">Themewagon</a>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<div th:fragment="jquery">
+		<script src="/assets/js/jquery-1.11.3.min.js"></script>
+		<!-- bootstrap -->
+		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<!-- count down -->
+		<script src="/assets/js/jquery.countdown.js"></script>
+		<!-- isotope -->
+		<script src="/assets/js/jquery.isotope-3.0.6.min.js"></script>
+		<!-- waypoints -->
+		<script src="/assets/js/waypoints.js"></script>
+		<!-- owl carousel -->
+		<script src="/assets/js/owl.carousel.min.js"></script>
+		<!-- magnific popup -->
+		<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+		<!-- mean menu -->
+		<script src="/assets/js/jquery.meanmenu.min.js"></script>
+		<!-- sticker js -->
+		<script src="/assets/js/sticker.js"></script>
+		<!-- main js -->
+		<script src="/assets/js/main.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+		<script>
+			$.get("http://localhost:8080" + "/rest/categories", function (data, status) {
+				jQuery.each(data, function (index, itemData) {
+					$("#tagBar").append("<li data-filter='" + itemData.name + "'>" + itemData.name + "</li>");
+				});
+			});
+
+			const app = angular.module("myApp", [])
+			app.controller("shopping-cart-ctrl", function ($scope, $http) {
+
+
+				//quản lý giỏ hàng
+				var $cart = $scope.cart = {
+					items: [],
+					add(id) { // thêm sản phẩm vào giỏ hàng
+						var item = this.items.find(item => item.id == id);
+						let data = {}
+						if (item) {
+							item.qty++;
+							this.saveToLocalStorage();
+							data["quantity"] = item.qty;
+							data["product"] = {
+								id: item.id
+							}
+						}
+
+						else {
+							$.when(
+								$http.get(`http://localhost:8080/rest/products/${id}`).then(resp => {
+									resp.data.qty = 1;
+									this.items.push(resp.data);
+
+									this.saveToLocalStorage();
+									data["product"] = {
+										id: resp.data.id
+									}
+									data["quantity"] = 1;
+									console.log(data);
+								})
+
+							).then(function () {
+								$http.post(`http://localhost:8080/rest/ordersession`, data).then(resp => {
+									console.log(resp.data);
+
+								})
+
+							});
+
+							console.log(this.items);
+
+
+
+						}
+
+					},
+					remove(id) { // xóa sản phẩm khỏi giỏ hàng
+						// var index = this.items.findIndex(item => item.id == id);
+						// this.items.splice(index, 1);
+						// this.saveToLocalStorage();
+					},
+					clear() { // Xóa sạch các mặt hàng trong giỏ
+						// this.items = []
+						// this.saveToLocalStorage();
+					},
+					amt_of(item) { // tính thành tiền của 1 sản phẩm
+						// return item.price * item.qty;
+					},
+					get count() { // tính tổng số lượng các mặt hàng trong giỏ
+						return this.items
+							.map(item => item.qty)
+							.reduce((total, qty) => total += qty, 0);
+					},
+					get amount() { // tổng thành tiền các mặt hàng trong giỏ
+						return this.items
+							.map(item => item.qty * item.price)
+							.reduce((total, qty) => total += qty, 0);
+					},
+					get data() {
+						return this.items;
+					},
+
+					saveToLocalStorage() { // lưu giỏ hàng vào local storage
+						var json = JSON.stringify(angular.copy(this.items));
+						localStorage.setItem("cart", json);
+
+
+						// $http.post('http://localhost:8080/rest/products', $scope.newProduct)
+						// 	.then(function (response) {
+						// 		alert(response.data);
+						//
+						// 	})
+					},
+					loadFromLocalStorage() { // đọc giỏ hàng từ local storage
+						var json = localStorage.getItem("cart");
+						this.items = json ? JSON.parse(json) : [];
+					},
+					// loadCartFromDb() {
+					// 	console.log(this.items)
+					// 	alert(0)
+					// 	$http.get(`http://localhost:8080/rest/ordersession`).then(resp => {
+					// 		console.log(resp.data);
+					// 		for (let index = 0; index < resp.data.length; index++) {
+					// 			resp.data[index].product.qty = resp.data[index].quantity;
+					// 			this.items.push(resp.data[index].product);
+
+					// 		}
+					// 		console.log(this.items);
+					// 	})
+
+					// }
+				}
+
+
+
+
+
+
+
+				$cart.loadFromLocalStorage();
+
+
+
+				$scope.dataAddress = {}
+
+				$scope.createOrder = function () {
+					$scope.dataAddress["address"] = document.getElementById("myaddress").value
+					let id = 0;
+
+					$.when(
+						$http.post(`http://localhost:8080/rest/order`, $scope.dataAddress).then(resp => {
+							console.log(resp.data);
+							id = resp.data.id;
+						})
+
+					).then(function () {
+						
+						if (id > 0) {
+							for (let index = 0; index < $cart.items.length; index++) {
+								let data = {}
+								data["quantity"] = $cart.items[index].qty;
+								data["product"] = {
+									id: $cart.items[index].id
+								};
+								data["price"] = $cart.items[index].price;
+								data["order"] = {
+									id:id
+								}
+
+								$http.post('http://localhost:8080/rest/orderdetails', data)
+								.then(function (response) {
+									console.log(response.data);
+						
+								})
+
+								console.log(data);
+							}
+						}
+
+					})
+				}
+
+
+			})
+
+
+
+
+		</script>
+
+	</div>
+</body>
+
+</html>

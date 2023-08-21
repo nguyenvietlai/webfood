@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="/vendor/bootstrap-select/dist//css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+
+<body  ng-app="app" ng-controller="ctrl"> 
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <a href="index.html" class="brand-logo">
+                <img class="logo-abbr" src="/images/logo-white.png" alt="">
+                <img class="logo-compact" src="/images/logo-text-white.png" alt="">
+                <img class="brand-title" src="/images/logo-text-white.png" alt="">
+            </a>
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+
+  
+        <!-- header -->
+        <div th:replace="layout/adminFragments :: header"></div>
+        <!-- end header -->
+
+<!--        slidebar-->
+        <div th:replace="layout/adminFragments :: slidebar"></div>
+    
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Hi <span style="font-size: 30px;" sec:authentication="name"></span>, welcome back!</h4>
+                            <p class="mb-0">Your business dashboard template</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Bootstrap</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+
+                <div class="row">
+                  
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Phân quyền user</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table ng-if="db" class="table table-bordered table-responsive-sm">
+                                        <thead>
+                                            <tr>
+                         
+                                                <th>Name</th>
+                                                <th ng-repeat="role in db.roles">{{role.name}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <tr ng-repeat="acc in db.accounts" >
+                                   
+                                                <td>{{acc.username}}</td>
+                                                <td ng-repeat="role in db.roles">
+                                                    <input type="checkbox" 
+                                                        ng-checked="index_of(acc.id, role.id) >= 0" 
+                                                        ng-click="update(acc.id, role.id)">
+                                                </td>
+                                            </tr>
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+	<script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/js/custom.min.js"></script>
+    <script src="/js/dlabnav-init.js"></script>
+    
+
+
+
+	<!-- Svganimation scripts -->
+    <script src="/vendor/svganimation/vivus.min.js"></script>
+    <script src="/vendor/svganimation/svg.animation.js"></script>
+    <script src="/index-3.html"></script>
+    <script>
+        var app = angular.module("app", []);
+app.controller("ctrl", function($scope, $http){
+	$http.get("/rest/authorities").then(resp => {
+		$scope.db = resp.data;
+		console.log(resp.data)
+	})
+	
+	$scope.index_of = function(id, role){
+		return $scope.db.authorities
+			.findIndex(a => a.account.id == id && a.role.id == role);
+	}
+	
+	$scope.update = function(userid, role){
+		var index = $scope.index_of(userid, role);
+		if(index >= 0){
+			var id = $scope.db.authorities[index].id;
+			$http.delete(`/rest/authorities/${id}`).then(resp => {
+				$scope.db.authorities.splice(index, 1);
+			})
+		}
+		else{
+			var authority = {
+				account:{id: userid},
+				role:{id: role}
+			};
+			$http.post('/rest/authorities', authority).then(resp => {
+				$scope.db.authorities.push(resp.data);
+			});
+		}
+	}
+});
+    </script>
+</body>
+
+</html>
